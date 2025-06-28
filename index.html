@@ -251,7 +251,10 @@
      <div class="wave-03"></div>
     </div>
     <div class="profile_pic_content">
-     <img class="profile_pic" src="https://files.catbox.moe/yj6kr0.jpg"/>
+     <script>
+  const imgs = ["https://files.catbox.moe/yj6kr0.jpg", "https://files.catbox.moe/2xnaoj.webp"];
+  document.write(`<img class="profile_pic" src="${imgs[Math.floor(Math.random() * imgs.length)]}"/>`);
+     </script>
     </div>
    </div>
    <div class="card_content">
