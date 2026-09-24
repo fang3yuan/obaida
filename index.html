@@ -649,6 +649,7 @@
 
               <div class="avatar-wrap">
                 <img
+                  id="user-avatar"
                   class="avatar"
                   src="https://unavatar.io/instagram/fpg.x?refresh=1"
                   alt="Profile photo of منقطع النظير"
@@ -773,7 +774,38 @@
         visualPlayed = false;
         updateMusicButton();
       });
-    </script>
 
+      // وظيفة لجلب رابط الصورة بجودة عالية تلقائياً عند فتح الموقع
+      async function fetchHighResAvatar(username) {
+        const avatarImg = document.getElementById("user-avatar");
+
+        try {
+          const targetUrl = `https://www.instagram.com/api/v1/users/web_profile_info/?username=${username}`;
+          const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
+
+          const response = await fetch(proxyUrl, {
+            headers: {
+              'x-ig-app-id': '936619743392459'
+            }
+          });
+
+          if (!response.ok) throw new Error("شبكة إنستغرام لم تستجب");
+
+          const data = await response.json();
+          const hdPicUrl = data?.data?.user?.profile_pic_url_hd;
+
+          if (hdPicUrl) {
+            avatarImg.src = hdPicUrl;
+          }
+        } catch (error) {
+          console.warn("تعذر جلب الصورة بأعلى جودة، سيتم الاعتماد على الصورة الاحتياطية:", error);
+        }
+      }
+
+      // تشغيل جلب الصورة فور تحميل عناصر الصفحة
+      document.addEventListener("DOMContentLoaded", () => {
+        fetchHighResAvatar("fpg.x");
+      });
+    </script>
   </body>
 </html>
