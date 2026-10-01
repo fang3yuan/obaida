@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  const username = "YOUR_INSTAGRAM_USERNAME"; // اكتب اسم حسابك هنا عادي
+  const username = "fpg.x"; // اكتب اسم حسابك هنا عادي
   
   // يقرأ الـ sessionid من متغيرات البيئة المخفية
   const sessionId = process.env.IG_SESSION_ID || ""; 
